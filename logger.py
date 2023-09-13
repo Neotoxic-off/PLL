@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 class Logger:
@@ -18,9 +19,7 @@ class Logger:
         attributes = {}
 
         if (isinstance(data, self.builtin) == False):
-            for attr in dir(data):
-                if (attr.startswith("__") == False):
-                    attributes[attr] = getattr(data, attr)
+            attributes = json.dumps(data, default=lambda o: o.__dict__, sort_keys=True, indent=4)
         else:
             attributes = data
 
